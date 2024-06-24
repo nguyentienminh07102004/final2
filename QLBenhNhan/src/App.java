@@ -1,13 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+import ExceptionHandler.DuplicateMedicalRecordException;
 import Model.benhAn;
 import Model.benhAnThuong;
 import Model.benhAnVIP;
 import Repository.IMPL.BenhAn;
+import Validate.validate;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Scanner sc = new Scanner(System.in);
         BenhAn BA = new BenhAn();
         Integer choise = 1;
@@ -30,10 +35,24 @@ public class App {
                     break;
                 case 1:
                     String maBA = sc.nextLine();
+                    try {
+                        validate.checkMaBA(maBA);
+                    } catch (DuplicateMedicalRecordException e) {
+                        System.out.println(e.getMessage());
+                        maBA = sc.nextLine();
+                    }
                     String maBN = sc.nextLine();
+                    if(!validate.checkMa(maBN)) {
+                        System.out.println("Mã bệnh nhân không hợp lệ!");
+                        continue;
+                    }
                     String tenBN = sc.nextLine();
                     String ngayVao = sc.nextLine();
                     String ngayRa = sc.nextLine();
+                    LocalDate localDate = LocalDate.parse(ngayRa);
+                    ngayRa = dt.format(localDate);
+                    localDate = LocalDate.parse(ngayVao);
+                    ngayVao = dt.format(localDate);
                     String lyDo = sc.nextLine();
                     String type = sc.nextLine();
                     if(type.trim().startsWith("VIP")) {
@@ -67,7 +86,7 @@ public class App {
                     if(confirm.toLowerCase().equals("yes")) {
                         BA.delete(id);
                     } 
-                    break;   
+                    break; 
                 default:
                     System.out.println("Khong hop le");
                     break;

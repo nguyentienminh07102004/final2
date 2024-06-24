@@ -34,6 +34,9 @@ public class BenhAn implements IBenhAn {
 				String type = st.nextToken();
 				if(!type.trim().startsWith("VIP")) {
 					benhAnThuong  bat = new benhAnThuong();
+					benhAn benhan = new benhAnThuong();
+					benhan = (benhAnThuong)ba;
+					System.out.println(benhan.toString());
 					bat.setSTT(ba.getSTT());
 					bat.setMaBA(ba.getMaBA());
 					bat.setMaBN(ba.getMaBN());
@@ -44,6 +47,9 @@ public class BenhAn implements IBenhAn {
 					bat.setPhi(Double.parseDouble(type));
 					result.add(bat);
 				} else {
+					benhAn benhan = new benhAnVIP();
+					benhan = (benhAnVIP)ba;
+					System.out.println(benhan.toString());
 					benhAnVIP bav = new benhAnVIP();
 					bav.setSTT(ba.getSTT());
 					bav.setMaBA(ba.getMaBA());
