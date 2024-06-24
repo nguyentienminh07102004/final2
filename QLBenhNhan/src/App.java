@@ -18,7 +18,7 @@ public class App {
             System.out.println("4. Thoat");
             choise = Integer.parseInt(sc.nextLine());
             switch (choise) {
-                case 1:
+                case 3:
                     List<benhAn> list = BA.findAll();
                     for(benhAn ba : list) {
                         if(ba instanceof benhAnThuong) {
@@ -28,10 +28,39 @@ public class App {
                         }
                     }
                     break;
-                case 2:
-                    BA.insert(null);
+                case 1:
+                    String maBA = sc.nextLine();
+                    String maBN = sc.nextLine();
+                    String tenBN = sc.nextLine();
+                    String ngayVao = sc.nextLine();
+                    String ngayRa = sc.nextLine();
+                    String lyDo = sc.nextLine();
+                    String type = sc.nextLine();
+                    if(type.trim().startsWith("VIP")) {
+                        String DateVIP = sc.nextLine();
+                        benhAnVIP bav = new benhAnVIP();
+                        bav.setMaBN(maBN);
+                        bav.setTen(tenBN);
+                        bav.setDateVIP(DateVIP);
+                        bav.setLyDo(lyDo);
+                        bav.setMaBA(maBA);
+                        bav.setNgayRa(ngayRa);
+                        bav.setNgayVao(ngayVao);
+                        bav.setTypeVIP(type);
+                        BA.insert(bav);
+                    } else {
+                        benhAnThuong bat = new benhAnThuong();
+                        bat.setMaBN(maBN);
+                        bat.setTen(tenBN);
+                        bat.setLyDo(lyDo);
+                        bat.setMaBA(maBA);
+                        bat.setNgayRa(ngayRa);
+                        bat.setNgayVao(ngayVao);
+                        bat.setPhi(Double.parseDouble(type));
+                        BA.insert(bat);
+                    }
                     break;
-                case 3:
+                case 2:
                     String id = sc.nextLine();
                     System.out.println("Ban chac chan muon xoa ?");
                     String confirm = sc.nextLine();
